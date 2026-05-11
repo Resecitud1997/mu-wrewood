@@ -1,15 +1,15 @@
 <?php
 /**
  * ARCHIVO: index.php
- * FUNCIÓN: Puerta de enlace principal del sitio.
+ * FUNCIÃ“N: Puerta de enlace principal del sitio.
  */
 
-// 1. Incluir la configuración y conexión a la DB
+// 1. Incluir la configuraciÃ³n y conexiÃ³n a la DB
 require_once('includes/config.php');
 require_once('includes/db_connect.php');
 require_once('includes/functions.php');
 
-// 2. Cargar el encabezado (HTML, CSS, Menú)
+// 2. Cargar el encabezado (HTML, CSS, MenÃº)
 include('templates/header.php');
 ?>
 
@@ -20,12 +20,12 @@ include('templates/header.php');
         <!-- COLUMNA IZQUIERDA: Noticias y Bienvenida -->
         <div class="col-lg-8">
             <section class="news-section">
-                <h2 class="text-warning border-bottom pb-2 mb-4">Últimas Noticias</h2>
+                <h2 class="text-warning border-bottom pb-2 mb-4">Ãšltimas Noticias</h2>
                 
                 <div class="card bg-dark text-white mb-4 shadow border-secondary">
                     <div class="card-body">
-                        <h5 class="card-title text-info">¡Gran Apertura del Servidor!</h5>
-                        <p class="card-text">Únete a la aventura en la Temporada 19. Comienza tu camino hacia el reset y domina el continente.</p>
+                        <h5 class="card-title text-info">Â¡Gran Apertura del Servidor!</h5>
+                        <p class="card-text">Ãšnete a la aventura en la Temporada 19. Comienza tu camino hacia el reset y domina el continente.</p>
                         <span class="badge bg-secondary">Publicado: <?php echo date('d/m/Y'); ?></span>
                     </div>
                 </div>
@@ -33,7 +33,7 @@ include('templates/header.php');
                 <div class="card bg-dark text-white mb-4 shadow border-secondary">
                     <div class="card-body">
                         <h5 class="card-title text-info">Evento de Bienvenida</h5>
-                        <p class="card-text">Todos los personajes nuevos recibirán un kit de inicio básico durante las primeras 48 horas.</p>
+                        <p class="card-text">Todos los personajes nuevos recibirÃ¡n un kit de inicio bÃ¡sico durante las primeras 48 horas.</p>
                     </div>
                 </div>
             </section>
@@ -54,7 +54,7 @@ include('templates/header.php');
                     </div>
                     <hr class="border-secondary">
                     <div class="d-flex justify-content-between small text-muted">
-                        <span>Versión:</span>
+                        <span>VersiÃ³n:</span>
                         <span>Season 19</span>
                     </div>
                     <div class="d-flex justify-content-between small text-muted">
@@ -78,7 +78,7 @@ include('templates/header.php');
                         </thead>
                         <tbody>
                             <?php 
-                            // Incluimos el módulo de ranking para llenar la tabla
+                            // Incluimos el mÃ³dulo de ranking para llenar la tabla
                             include('modules/ranking_mini.php'); 
                             ?>
                         </tbody>
@@ -94,6 +94,6 @@ include('templates/header.php');
 </main>
 
 <?php
-// 3. Cargar el pie de página (Scripts, Copyright, Cierre de HTML)
+// 3. Cargar el pie de pÃ¡gina (Scripts, Copyright, Cierre de HTML)
 include('templates/footer.php');
 ?>
