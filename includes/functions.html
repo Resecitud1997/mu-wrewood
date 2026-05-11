@@ -1,7 +1,7 @@
 <?php
 /**
  * ARCHIVO: functions.php
- * FUNCIÓN: Utilidades globales, seguridad y consultas rápidas.
+ * FUNCIÃ“N: Utilidades globales, seguridad y consultas rÃ¡pidas.
  */
 
 /**
@@ -20,7 +20,7 @@ function get_online_count($conn) {
 }
 
 /**
- * Limpia los datos de entrada para prevenir Inyección SQL.
+ * Limpia los datos de entrada para prevenir InyecciÃ³n SQL.
  * Muy importante para el registro y login.
  */
 function clean_input($data) {
@@ -28,13 +28,13 @@ function clean_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
-    // Elimina carácteres que suelen usarse en ataques SQL
+    // Elimina carÃ¡cteres que suelen usarse en ataques SQL
     $data = str_replace(array("'", '"', ";", "--"), "", $data);
     return $data;
 }
 
 /**
- * Convierte el código de clase (Class) de la DB a un nombre legible.
+ * Convierte el cÃ³digo de clase (Class) de la DB a un nombre legible.
  */
 function get_class_name($class_id) {
     $classes = array(
@@ -51,7 +51,7 @@ function get_class_name($class_id) {
 }
 
 /**
- * Verifica si un nombre de usuario ya existe (Útil para el Registro).
+ * Verifica si un nombre de usuario ya existe (Ãštil para el Registro).
  */
 function user_exists($conn, $username) {
     $username = clean_input($username);
