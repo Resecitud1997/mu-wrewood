@@ -5,24 +5,24 @@ require_once('includes/functions.php');
 
 $mensaje = "";
 
-// 1. Procesar el formulario cuando se envía (POST)
+// 1. Procesar el formulario cuando se envÃ­a (POST)
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = clean_input($_POST['usuario']);
     $pass = clean_input($_POST['password']);
     $repass = clean_input($_POST['repassword']);
     $email = clean_input($_POST['email']);
 
-    // Validaciones básicas
+    // Validaciones bÃ¡sicas
     if (strlen($user) < 4 || strlen($user) > 10) {
         $mensaje = "<div class='alert alert-danger'>El usuario debe tener entre 4 y 10 caracteres.</div>";
     } elseif ($pass != $repass) {
-        $mensaje = "<div class='alert alert-danger'>Las contraseñas no coinciden.</div>";
+        $mensaje = "<div class='alert alert-danger'>Las contraseÃ±as no coinciden.</div>";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $mensaje = "<div class='alert alert-danger'>Correo electrónico no válido.</div>";
+        $mensaje = "<div class='alert alert-danger'>Correo electrÃ³nico no vÃ¡lido.</div>";
     } elseif (user_exists($conn, $user)) {
-        $mensaje = "<div class='alert alert-danger'>El nombre de usuario ya está en uso.</div>";
+        $mensaje = "<div class='alert alert-danger'>El nombre de usuario ya estÃ¡ en uso.</div>";
     } else {
-        // 2. Insertar en la Base de Datos (Seguridad Máxima con Parámetros)
+        // 2. Insertar en la Base de Datos (Seguridad MÃ¡xima con ParÃ¡metros)
         // Nota: Mu Online suele usar '1' para el campo 'bloc_code' y 'ctl1_code'
         $sql = "INSERT INTO MEMB_INFO (memb___id, memb__pwd, memb_name, sno__numb, post_code, addr_info, addr_deta, mail_addr, fp_question, fp_answer, job__code, appl_days, modi_days, out__days, true_days, mail_chek, bloc_code, ctl1_code) 
                 VALUES (?, ?, ?, '1', '1', '1', '1', ?, 'Pregunta', 'Respuesta', '1', getdate(), getdate(), getdate(), getdate(), '1', '0', '0')";
@@ -31,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt = sqlsrv_query($conn, $sql, $params);
 
         if ($stmt) {
-            $mensaje = "<div class='alert alert-success'>¡Cuenta creada con éxito! Ya puedes entrar al juego.</div>";
+            $mensaje = "<div class='alert alert-success'>Â¡Cuenta creada con Ã©xito! Ya puedes entrar al juego.</div>";
         } else {
-            $mensaje = "<div class='alert alert-danger'>Error técnico al crear la cuenta. Intenta más tarde.</div>";
+            $mensaje = "<div class='alert alert-danger'>Error tÃ©cnico al crear la cuenta. Intenta mÃ¡s tarde.</div>";
         }
     }
 }
@@ -47,7 +47,7 @@ include('templates/header.php');
             <div class="card bg-dark text-white border-warning shadow-lg">
                 <div class="card-header text-center py-4">
                     <h2 class="mu-title">CREAR CUENTA</h2>
-                    <p class="text-muted small">Únete a la batalla en <?php echo SERVER_NAME; ?></p>
+                    <p class="text-muted small">Ãšnete a la batalla en <?php echo SERVER_NAME; ?></p>
                 </div>
                 <div class="card-body px-5">
                     
@@ -60,17 +60,17 @@ include('templates/header.php');
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label text-warning">Correo Electrónico</label>
+                            <label class="form-label text-warning">Correo ElectrÃ³nico</label>
                             <input type="email" name="email" class="form-control bg-black text-white border-secondary" placeholder="tu@correo.com" required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-warning">Contraseña</label>
+                            <label class="form-label text-warning">ContraseÃ±a</label>
                             <input type="password" name="password" class="form-control bg-black text-white border-secondary" required>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label text-warning">Repetir Contraseña</label>
+                            <label class="form-label text-warning">Repetir ContraseÃ±a</label>
                             <input type="password" name="repassword" class="form-control bg-black text-white border-secondary" required>
                         </div>
 
@@ -80,7 +80,7 @@ include('templates/header.php');
                     </form>
                 </div>
                 <div class="card-footer text-center text-muted py-3">
-                    ¿Ya tienes cuenta? <a href="#" class="text-info text-decoration-none">Inicia Sesión</a>
+                    Â¿Ya tienes cuenta? <a href="#" class="text-info text-decoration-none">Inicia SesiÃ³n</a>
                 </div>
             </div>
         </div>
