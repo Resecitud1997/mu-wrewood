@@ -1,19 +1,19 @@
 <?php
 /**
  * ARCHIVO: modules/ranking_mini.php
- * FUNCIÓN: Extrae y muestra el Top 5 de personajes directamente de la DB.
+ * FUNCIÃ“N: Extrae y muestra el Top 5 de personajes directamente de la DB.
  */
 
 // 1. Definir la consulta SQL
 // Nota: Ajusta los nombres de las columnas 'Resets', 'Name', 'cLevel' y 'Class' 
-// según la versión de tu base de datos (Files Season 6, 15, 19, etc.)
+// segÃºn la versiÃ³n de tu base de datos (Files Season 6, 15, 19, etc.)
 $sqlRanking = "SELECT TOP 5 Name, cLevel, Resets, Class 
                FROM Character 
                ORDER BY Resets DESC, cLevel DESC";
 
 $queryRanking = sqlsrv_query($conn, $sqlRanking);
 
-// 2. Verificar si la consulta devolvió resultados
+// 2. Verificar si la consulta devolviÃ³ resultados
 if ($queryRanking === false) {
     echo "<tr><td colspan='3' class='text-center text-danger'>Error al cargar ranking</td></tr>";
 } else {
@@ -22,7 +22,7 @@ if ($queryRanking === false) {
     // 3. Bucle para mostrar cada fila de la tabla
     while ($player = sqlsrv_fetch_array($queryRanking, SQLSRV_FETCH_ASSOC)) {
         
-        // Usamos la función que creamos en functions.php para traducir el código de clase
+        // Usamos la funciÃ³n que creamos en functions.php para traducir el cÃ³digo de clase
         $className = get_class_name($player['Class']);
         
         echo "<tr>";
@@ -37,9 +37,9 @@ if ($queryRanking === false) {
         $posicion++;
     }
 
-    // Si no hay personajes creados aún
+    // Si no hay personajes creados aÃºn
     if ($posicion == 1) {
-        echo "<tr><td colspan='3' class='text-center'>No hay valientes registrados aún</td></tr>";
+        echo "<tr><td colspan='3' class='text-center'>No hay valientes registrados aÃºn</td></tr>";
     }
 }
 ?>
