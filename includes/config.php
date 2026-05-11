@@ -1,0 +1,41 @@
+<?php
+/**
+ * ARCHIVO: config.php
+ * DESCRIPCIÓN: Configuración global del servidor y conexión a base de datos.
+ */
+
+// 1. Configuración de la Base de Datos (MS SQL Server)
+define('DB_SERVER', 'localhost');      // IP del VPS o localhost
+define('DB_USER', 'sa');               // Usuario por defecto de SQL Server
+define('DB_PASS', 'TuPasswordSeguro'); // La contraseña que pusiste al instalar SQL
+define('DB_NAME', 'MuOnline');         // Nombre de la base de datos
+
+// 2. Información del Servidor
+define('SERVER_NAME', 'MU ONLINE WREWOOB'); 
+define('SERVER_VERSION', 'Season 19');
+define('SERVER_EXP', '1100x');
+define('SERVER_DROP', '30%');
+
+// 3. Configuración de Rankings
+define('TOP_RANK_LIMIT', 5); // Cuántos personajes mostrar en el mini-ranking del index
+
+// 4. Rutas del Sitio (Para evitar errores de enlaces rotos)
+define('BASE_URL', 'http://localhost/mu-website/');
+
+// 5. Configuración de Seguridad
+// Evita que se acceda directamente a los archivos de la carpeta /includes
+if (basename($_SERVER['PHP_SELF']) == 'config.php') {
+    die("Acceso denegado: No puedes entrar aquí directamente.");
+}
+
+// 6. Manejo de Errores (Desactivar en producción)
+error_reporting(E_ALL);
+ini_set('display_errors', '1'); 
+
+/**
+ * NOTA: Si usas una versión de MuOnline muy antigua, 
+ * el hashing de contraseñas podría ser MD5. 
+ * Si es una versión moderna, usualmente es texto plano o SHA256.
+ */
+define('USE_MD5', false); 
+?>

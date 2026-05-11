@@ -1,0 +1,90 @@
+<?php
+require_once('includes/config.php');
+require_once('includes/db_connect.php');
+require_once('includes/functions.php');
+
+$mensaje = "";
+
+// 1. Procesar el formulario cuando se envía (POST)
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $user = clean_input($_POST['usuario']);
+    $pass = clean_input($_POST['password']);
+    $repass = clean_input($_POST['repassword']);
+    $email = clean_input($_POST['email']);
+
+    // Validaciones básicas
+    if (strlen($user) < 4 || strlen($user) > 10) {
+        $mensaje = "<div class='alert alert-danger'>El usuario debe tener entre 4 y 10 caracteres.</div>";
+    } elseif ($pass != $repass) {
+        $mensaje = "<div class='alert alert-danger'>Las contraseñas no coinciden.</div>";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $mensaje = "<div class='alert alert-danger'>Correo electrónico no válido.</div>";
+    } elseif (user_exists($conn, $user)) {
+        $mensaje = "<div class='alert alert-danger'>El nombre de usuario ya está en uso.</div>";
+    } else {
+        // 2. Insertar en la Base de Datos (Seguridad Máxima con Parámetros)
+        // Nota: Mu Online suele usar '1' para el campo 'bloc_code' y 'ctl1_code'
+        $sql = "INSERT INTO MEMB_INFO (memb___id, memb__pwd, memb_name, sno__numb, post_code, addr_info, addr_deta, mail_addr, fp_question, fp_answer, job__code, appl_days, modi_days, out__days, true_days, mail_chek, bloc_code, ctl1_code) 
+                VALUES (?, ?, ?, '1', '1', '1', '1', ?, 'Pregunta', 'Respuesta', '1', getdate(), getdate(), getdate(), getdate(), '1', '0', '0')";
+        
+        $params = array($user, $pass, $user, $email);
+        $stmt = sqlsrv_query($conn, $sql, $params);
+
+        if ($stmt) {
+            $mensaje = "<div class='alert alert-success'>¡Cuenta creada con éxito! Ya puedes entrar al juego.</div>";
+        } else {
+            $mensaje = "<div class='alert alert-danger'>Error técnico al crear la cuenta. Intenta más tarde.</div>";
+        }
+    }
+}
+
+include('templates/header.php');
+?>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white border-warning shadow-lg">
+                <div class="card-header text-center py-4">
+                    <h2 class="mu-title">CREAR CUENTA</h2>
+                    <p class="text-muted small">Únete a la batalla en <?php echo SERVER_NAME; ?></p>
+                </div>
+                <div class="card-body px-5">
+                    
+                    <?php echo $mensaje; ?>
+
+                    <form action="register.php" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label text-warning">Usuario (ID)</label>
+                            <input type="text" name="usuario" class="form-control bg-black text-white border-secondary" placeholder="Ej: krizalid" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-warning">Correo Electrónico</label>
+                            <input type="email" name="email" class="form-control bg-black text-white border-secondary" placeholder="tu@correo.com" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-warning">Contraseña</label>
+                            <input type="password" name="password" class="form-control bg-black text-white border-secondary" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-warning">Repetir Contraseña</label>
+                            <input type="password" name="repassword" class="form-control bg-black text-white border-secondary" required>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4 mb-3">
+                            <button type="submit" class="btn btn-warning fw-bold py-2">REGISTRARSE AHORA</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center text-muted py-3">
+                    ¿Ya tienes cuenta? <a href="#" class="text-info text-decoration-none">Inicia Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php include('templates/footer.php'); ?>
